@@ -185,6 +185,9 @@ namespace instance_check_internal
 	}
 
 	// Deletes lockfile if it was created by this instance
+	// The Lockfile is created only on Linux a OSX. On Win, its handled by named mutex.
+	// The lockfile is deleted by instance it created it.
+	// On OSX message is passed to other instances to create a new lockfile after deletition.
 	static void delete_lockfile()
 	{
 		//BOOST_LOG_TRIVIAL(debug) << "shuting down with lockfile: " << l_created_lockfile;
