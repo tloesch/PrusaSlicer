@@ -216,7 +216,7 @@ private:
 		bool                   compare_text(const std::string& text);
         void                   hide(bool h) {  m_state = h ? EState::Hidden : EState::Unknown; }
 		// sets m_next_render with time of next mandatory rendering. Delta is time since last render.
-		void                   update_state(bool paused, const int64_t delta);
+		bool                   update_state(bool paused, const int64_t delta);
 		int64_t 		       next_render() const { return is_finished() ? 0 : m_next_render; }
 		EState                 get_state()  const { return m_state; }
 		bool				   is_hovered() const { return m_state == EState::Hovered; } 
@@ -407,10 +407,8 @@ private:
 	bool                         m_move_from_overlay { false };
 	// Timestamp of last rendering
 	int64_t						 m_last_render { 0LL };
-/*
-	bool						 m_requires_update{ false };
-	bool						 m_requires_render{ false };
-*/
+	int64_t						 m_last_update { 0LL };
+
 	//prepared (basic) notifications
 	const std::vector<NotificationData> basic_notifications = {
 		{NotificationType::Mouse3dDisconnected, NotificationLevel::RegularNotification, 10,  _u8L("3D Mouse disconnected.") },
